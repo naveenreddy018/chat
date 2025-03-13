@@ -1,0 +1,169 @@
+*{
+    font-size: 1.1rem !important;
+}
+.help-container {
+    font-family: 'Times New Roman', Times, serif;
+    padding: 40px;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    font-size: 1.2rem;  
+  }
+  
+  li{
+    color:  black !important;
+  }
+
+  .help-container h1 {
+    font-size:4rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .faq-section {
+    margin-bottom: 40px;
+  }
+  
+  .faq-section h2 {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  
+  
+  .faq-item {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+  }
+  
+  .question {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #007bff;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  .question  h3{
+    font-size: 1.5rem;
+  }
+  .question:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .answer {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    color: #555;
+  }
+  .answer ul li{
+    font-size: 1.3rem;
+  }
+  
+  .answer ul {
+    list-style-type: disc; 
+    padding-left: 20px;
+    margin: 0;
+    gap: 10px;
+  }
+  
+
+  .how-to-use {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+  }
+  
+  .how-to-use h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .how-to-use ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .how-to-use li {
+    font-size: 1.5rem;
+    color: #555;
+  }
+
+  .support-call {
+    margin-top: 40px;
+  }
+  
+  .support-call h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .support-call p {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .support-call ul {
+    list-style-type: none;
+    padding: 0;
+    gap: 10px;  
+  }
+  
+  .support-call li {
+    font-size: 1.5rem;
+    color: #555;
+  }
+
+  @media screen and (max-width: 768px) {
+    .faq-section h2, .how-to-use h2, .support-call h2 {
+      font-size: 2rem;
+    }
+  
+    .faq-item .question, .faq-item .answer {
+      font-size: 1.4rem;
+    }
+  
+    .how-to-use li, .support-call li {
+      font-size: 1.4rem;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .faq-section h2, .how-to-use h2, .support-call h2 {
+      font-size: 1.6rem;
+    }
+    li{
+      color: black !important;
+    }
+    .answer > ul > li{
+      color: black !important;
+      background-color: white ;
+    }
+  
+    .faq-item .question, .faq-item .answer {
+      font-size: 1.3rem;
+    }
+  
+    .how-to-use li, .support-call li {
+      font-size: 1.3rem;
+    }
+  }
+  

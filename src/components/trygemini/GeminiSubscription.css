@@ -1,0 +1,147 @@
+/* Page Container */
+.subscription-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+    transition: background 1s ease-in-out;
+  }
+  
+  /* Background Color Change on Start */
+  .start-bg {
+    background: linear-gradient(135deg, #ff6699, #ffcc00, #00ccff, #ff3366);
+    background-size: 300% 300%;
+    animation: colorShift 2s infinite alternate;
+  }
+  
+  /* Background Animation */
+  @keyframes colorShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+  
+  /* Subscription Card */
+  .subscription-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    transition: transform 0.3s ease;
+  }
+  
+  li:hover{
+    background-color: #00ccff;
+  }
+  /* Countdown Timer */
+  .countdown-container {
+    margin-top: 20px;
+  }
+  
+  .countdown {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+  }
+  
+  /* Title */
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .gemini {
+    color: #333;
+  }
+  
+  .advanced {
+    color: #8e44ad;
+  }
+ button a{
+   color: white;
+ }
+ button a:hover{
+    color : white !important;
+    text-decoration: none !important;
+ }
+  
+  /* Description */
+  .description {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  /* Pricing */
+  .pricing {
+    margin: 10px 0;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    color: #777;
+  }
+  
+  .discounted-price {
+    color: #27ae60;
+    font-weight: bold;
+  }
+  
+  .after-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Features */
+  .features {
+    text-align: left;
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+  }
+  
+  .features li {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 5px;
+  }
+  
+  /* Start Trial Button */
+  .start-trial {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s ease-in-out;
+    width: 100%;
+  }
+  
+  .start-trial:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  /* Terms */
+  .terms {
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 500px) {
+    .subscription-card {
+      width: 90%;
+    }
+  }
+  

@@ -1,0 +1,51 @@
+@media (max-width:1024px){
+    .seperator{
+        display: flex;
+        gap: 0% !important;
+
+    }
+    
+}
+
+ @media (max-width : 768px) {
+    .seperator{
+ padding: 50px;
+ gap: 10%  !important;
+    }
+    .imagecontainer{
+        width: 65% !important;
+    }
+
+ }
+@media (max-width : 435px) {
+    .container1{
+        position: relative !important;
+        left: 15% !important;
+
+        width: 350px !important;
+    }
+    .container{
+        width: 100%;
+        text-align: center;
+        width: 300px !important;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    .image{
+        display: none !important;
+    }
+    .btns{
+        display: flex;
+        flex-direction: column;
+    }
+    .selectedVideoSection{
+        width: 100% !important;
+
+    }
+    .form_element{
+        width: 90%;
+    }
+ 
+}
