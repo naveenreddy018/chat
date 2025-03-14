@@ -58,6 +58,16 @@ function Response_Bar() {
     }
   }, [conversation]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!requestInProgress) {
+        handleSend("Give me a random fact"); // Auto-fetch every 2 minutes
+      }
+    }, 120000); // 2 minutes
+
+    return () => clearInterval(interval);
+  }, [requestInProgress]);
+
   const handleLogout = () => {
     localStorage.removeItem("Username");
     localStorage.removeItem("profilePhoto");
