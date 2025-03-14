@@ -1,0 +1,46 @@
+
+
+@media (max-width: 425px) {
+    .container {
+      padding: 5px !important;
+      flex-direction: column !important;
+      width: 100% !important;
+    }
+  
+    .videoSection {
+      flex-direction: column !important;
+      width: 100% !important;
+      gap: 15px !important;
+    }
+  
+    .videoList {
+      width: 1000px !important;
+      gap: 10px !important;
+      font-size: 5rem !important;
+    }
+  
+    .videoCardTitle {
+      font-size: 8.8rem !important;
+    }
+  
+    .featureCardsContainer {
+      flex-direction: column !important;
+      gap: 10px !important;
+    }
+  
+    .heading {
+      font-size: 1rem !important;
+    }
+  
+    .subHeading {
+      font-size: 1rem !important;
+    }
+  
+    .description {
+      font-size: 0.8rem !important;
+    }
+  
+    /* li {
+    color: white !important;
+    } */
+  }

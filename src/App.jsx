@@ -7,6 +7,7 @@ import GeminiSubscription from './components/trygemini/try'
 import Settings from './components/interface/setting'
 import Help from './components/interface/help'
 import Profile from './components/interface/profile'
+import AppNavbar from './components/interface/about'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/settings' element={<Settings />} />
         <Route  path='/help' element={<Help />} />
         <Route path='/profile' element={<Profile />} />
+        <Route   path='/about' element={<AppNavbar />} />
       </Routes>
     
     </div>

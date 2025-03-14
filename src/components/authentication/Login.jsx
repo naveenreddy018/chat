@@ -8,9 +8,8 @@ export const Username = [];
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [loginmessage, setloginmessage] = useState(""); 
-    const [guestlogin,setguest] = useState("")
-
+    const [loginmessage, setLoginMessage] = useState(""); 
+    const [guestLogin, setGuestLogin] = useState("");
 
     const navigate = useNavigate();
 
@@ -23,20 +22,15 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setTimeout(() => setLoginMessage(""), 3000);  
 
-
-    
-        setTimeout(() => {
-            setloginmessage("");  
-        }, 3000);  
-
-    
-        if (username === "" || password === "") {
-            setloginmessage("Please enter both username and password.");
+        if (username.trim() === "" || password.trim() === "") {
+            setLoginMessage("Please enter both username and password.");
             return; 
         }
 
         Username.push(username);
+        localStorage.setItem("Username", username);  // Store username in localStorage
 
         try {
             const res = await fetch("https://render-back-end-8.onrender.com/login", {
@@ -49,42 +43,33 @@ const Login = () => {
 
             if (res.ok) {
                 localStorage.setItem("token", JSON.stringify(data.token1));
-                setloginmessage(`Login successful! Redirecting...`);
+                setLoginMessage("Login successful! Redirecting...");
 
-                setTimeout(() => {
-                    navigate('/profile');
-                }, 3000);
+                setTimeout(() => navigate('/profile'), 2000);
             } else {
-                setloginmessage(data.message || "Login failed");
+                setLoginMessage(data.message || "Login failed");
             }
         } catch (error) {
-            setloginmessage("An error occurred while logging in.");
+            setLoginMessage("An error occurred while logging in.");
             console.error("Login error:", error);
         }
-
-    
-        // if (clickCount >= 4) {
-        //     setClickCount(0);  
-        // }
     };
 
     const handleGuestLogin = () => {
-        setguest("Login successful!  as guest Redirecting...")
-        Username.push("guest");
-     setTimeout(() => {
-        navigate('/auth'); 
-     }, 2000);
+        setGuestLogin("Login successful as Guest. Redirecting...");
+        Username.push("Guest");
+        localStorage.setItem("Username", "Guest");  // Store Guest as Username
+        
+        setTimeout(() => navigate('/auth'), 2000);
     };
 
-    const handleRegisterRedirect = () => {
-        navigate("/register");  
-    };
+    const handleRegisterRedirect = () => navigate("/register");
 
-   
     return (
         <div style={styles.container}>
             <form id="login" onSubmit={handleSubmit} style={styles.form}>
                 <h2 style={styles.header}>Login to Gemini AI</h2>
+                
                 <label htmlFor="name" style={styles.label}>Username</label>
                 <input 
                     id="name"
@@ -94,6 +79,7 @@ const Login = () => {
                     onChange={(e) => setUsername(e.target.value)}
                     style={styles.input}
                 />
+
                 <label htmlFor="pass" style={styles.label}>Password</label>
                 <input 
                     id="pass"
@@ -103,8 +89,9 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     style={styles.input}
                 />
+
                 <input type="submit" value="Login" style={styles.submitBtn} />
-                
+
                 <div style={styles.loginRedirectContainer}>
                     <p style={styles.pTag}>Don't have an account? 
                         <span onClick={handleRegisterRedirect} style={styles.registerLink}> Register here</span>
@@ -117,12 +104,15 @@ const Login = () => {
 
             <div style={styles.guestLoginContainer}>
                 <p style={styles.pTag}>Login as Guest:</p>
-                {guestlogin && <Appa action={guestlogin} />}
+                {guestLogin && <Appa action={guestLogin} />}
                 <button onClick={handleGuestLogin} style={styles.guestButton}>Guest User</button>
             </div>
         </div>
     );
 };
+
+
+
 
 const styles = {
     container: {
