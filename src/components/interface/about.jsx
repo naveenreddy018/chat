@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import "./about.css"
+import { useNavigate } from "react-router-dom";
 
 function AboutGeminiAI() {
   const [selectedVideo, setSelectedVideo] = useState(null);
 
+
+
+  useEffect(() => {
+    setSelectedVideo(videos[0]);
+  }, []);
+const navigate = useNavigate("/auth")
   const videos = [
     {
       title: "The Evolution of Artificial Intelligence",
@@ -35,6 +42,25 @@ function AboutGeminiAI() {
 
   return (
     <div style={styles.container}>
+      <button
+        className="back-arrow"
+        onClick={() => navigate('/auth')}
+        style={{
+          cursor: 'pointer',
+          fontSize: '18px',
+          display: 'flex',
+          alignItems: 'center',
+          background: 'none',
+          border: 'none',
+          color:"white",
+          padding: '10px',
+          position:"relative",
+          left:"-45%",
+          marginBottom: '10px',
+        }}
+      >
+        ← Back 
+      </button>
 
       <div style={styles.videoSection}>
         <div  className="videoList" style={styles.videoList}>
@@ -172,7 +198,9 @@ function AboutGeminiAI() {
       </div>
     </div>
   );
-}const styles = {
+}
+
+const styles = {
   li : {
    color: "white",
   },

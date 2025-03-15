@@ -1,43 +1,66 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const TypingEffect = ({ text, delay }) => {
+const TypingEffect = ({ text, delay = 30 }) => {
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
   const [showButton, setShowButton] = useState(false);
-  const textContainerRef = useRef(null); 
+  const textContainerRef = useRef(null);
+  const typingIntervalRef = useRef(null);
+  const userScrolledRef = useRef(false);
 
   useEffect(() => {
-    if (!text) return;
+    if (!text || typingIntervalRef.current) return;
 
-    let sanitizedText = text.replace(/\*/g, " "); 
+    let sanitizedText = text.replace(/\*/g, " ");
+    sanitizedText = sanitizedText.replace(/(\d+\.|[-•])/g, "\n$1"); // Newline before numbers or bullet points
+
     let startIdx = index;
-    let endIdx = Math.min(startIdx + 700, sanitizedText.length); 
+    let endIdx = Math.min(startIdx + 1700, sanitizedText.length);
     let truncatedText = sanitizedText.slice(startIdx, endIdx);
 
     let charIndex = 0;
-    let intervalid = setInterval(() => {
+    typingIntervalRef.current = setInterval(() => {
       if (charIndex < truncatedText.length) {
-        setDisplayText((prev) => prev + truncatedText[charIndex]);
+        setDisplayText(sanitizedText.slice(0, startIdx + charIndex + 1)); // Fix skipping issue
         charIndex += 1;
-      } else {
-        clearInterval(intervalid);
-        setShowButton(endIdx < sanitizedText.length);
-
 
         setTimeout(() => {
           if (textContainerRef.current) {
-            textContainerRef.current.scrollTop = textContainerRef.current.scrollHeight;
-          }
-        }, 100);
-      }
-    }, delay);
+            const { scrollTop, scrollHeight, clientHeight } = textContainerRef.current;
+            const isAtBottom = scrollTop + clientHeight >= scrollHeight - 20;
 
-    return () => clearInterval(intervalid);
+            if (!userScrolledRef.current || isAtBottom) {
+              textContainerRef.current.scrollTo({ top: scrollHeight, behavior: "smooth" });
+            }
+          }
+        }, 20);
+      } else {
+        clearInterval(typingIntervalRef.current);
+        typingIntervalRef.current = null;
+        setShowButton(endIdx < sanitizedText.length);
+      }
+    }, Math.max(5, delay / 3));
+
+    return () => {
+      clearInterval(typingIntervalRef.current);
+      typingIntervalRef.current = null;
+    };
   }, [index, text, delay]);
 
+  useEffect(() => {
+    if (textContainerRef.current) {
+      textContainerRef.current.addEventListener("scroll", () => {
+        if (textContainerRef.current) {
+          const { scrollTop, scrollHeight, clientHeight } = textContainerRef.current;
+          userScrolledRef.current = scrollTop + clientHeight < scrollHeight - 20;
+        }
+      });
+    }
+  }, []);
+
   const handleContinue = () => {
-    setIndex((prev) => prev + 500); 
-    setShowButton(false); 
+    setIndex((prev) => prev + 500);
+    setShowButton(false);
   };
 
   return (
@@ -45,12 +68,13 @@ const TypingEffect = ({ text, delay }) => {
       ref={textContainerRef}
       style={{
         color: "black",
-        fontSize: "1.1rem",
-        maxHeight: "300px", 
+        fontSize: "0.9rem",
+        maxHeight: "300px",
         overflowY: "auto",
         padding: "10px",
-        // border: "1px solid #ccc",
+        whiteSpace: "pre-line",
         borderRadius: "5px",
+       
       }}
     >
       {displayText}
@@ -61,15 +85,15 @@ const TypingEffect = ({ text, delay }) => {
             display: "block",
             marginTop: "10px",
             padding: "4px 12px",
-            fontSize: "1rem",
+            fontSize: "0.9rem",
             cursor: "pointer",
             backgroundColor: "#007bff",
-            color:"gold",
+            color: "gold",
             border: "none",
             borderRadius: "5px",
           }}
         >
-         click to  Continue.........
+          Click to Continue...
         </button>
       )}
     </div>

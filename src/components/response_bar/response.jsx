@@ -36,7 +36,37 @@ function Response_Bar() {
     "Best ways to learn coding?",
   ];
 
-  // Dynamically update username if changed in localStorage
+  useEffect(() => {
+    if (conversation.length > 0) {
+      const interval = setInterval(() => {
+        const storeResponseInDB = async () => {
+          try {
+            const res = await fetch("http://localhost:3001/storeResponse", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                prompt: conversation[conversation.length - 1].prompt,
+                response: conversation[conversation.length - 1].response,
+              }),
+            });
+  
+            if (!res.ok) throw new Error("Failed to store data in DB");
+            console.log("Response stored successfully!");
+          } catch (error) {
+            console.error("Error storing response:", error);
+          }
+        };
+        storeResponseInDB();
+      }, 10000);
+  
+      return () => clearInterval(interval); 
+    }
+  }, [conversation]);
+  
+
+
+
+
   useEffect(() => {
     const handleStorageChange = () => {
       setUsername(getStoredUsername());
@@ -159,7 +189,7 @@ function Response_Bar() {
                 </div>
                 {entry.response ? (
                   <div className="response-display">
-                    <TypingEffect text={entry.response} delay={30} />
+                    <TypingEffect  text={entry.response} delay={30} />
                   </div>
                 ) : (
                   loading && (
@@ -216,7 +246,7 @@ function Response_Bar() {
             style={{ backgroundColor: toggle ? "black" : "white", color: toggle ? "white" : "black" }}
             onChange={(e) => setPrompt(e.target.value)}
             value={prompt}
-            placeholder="Enter your prompt"
+            placeholder="Ask anything"
             onKeyDown={(e) => e.key === "Enter" && handleSend(prompt)}
           />
         </div>

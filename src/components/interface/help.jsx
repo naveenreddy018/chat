@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './help.css';
 
 function Help() {
   const [activeQuestion, setActiveQuestion] = useState(null);
+  const navigate = useNavigate(); // Initialize navigate
 
   const toggleAnswer = (index) => {
     setActiveQuestion(activeQuestion === index ? null : index);
@@ -15,7 +17,7 @@ function Help() {
         'Step 1: Enter your query or request in the input box.',
         'Step 2: Press the "Submit" button to send the query to Gemini AI.',
         'Step 3: Wait for the AI to process and generate a response.',
-        'Step 4: View the AI s response in the designated response area.',
+        'Step 4: View the AI’s response in the designated response area.',
         'Step 5: Modify your query for better results.',
         'Step 6: Use AI for various tasks like answering questions, generating ideas, or summarizing data.',
         'Step 7: AI learns and adapts based on your interactions.',
@@ -27,14 +29,14 @@ function Help() {
     {
       question: 'What can Gemini AI do?',
       answer: [
-         ' Step 1: Gemini AI answers a wide range of questions.',
-        ' Step 2: It summarizes text and provides key points.',
+        'Step 1: Gemini AI answers a wide range of questions.',
+        'Step 2: It summarizes text and provides key points.',
         'Step 3: Suggests improvements for writing, code, and content.',
         'Step 4: Generates ideas and brainstorming topics.',
         'Step 5: Translates text between multiple languages.',
         'Step 6: Assists in learning with explanations and breakdowns.',
-        ' Step 7: Helps with decision-making by offering pros and cons.',
-        ' Step 8: Integrates with systems for automation.',
+        'Step 7: Helps with decision-making by offering pros and cons.',
+        'Step 8: Integrates with systems for automation.',
         'Step 9: Simulates chatbot conversations.',
         'Step 10: Customizable for specific tasks like research, marketing, and software development.',
       ],
@@ -58,6 +60,25 @@ function Help() {
 
   return (
     <div className="help-container">
+      {/* 🔹 Back Arrow Button */}
+      <button
+        className="back-arrow"
+        onClick={() => navigate('/auth')}
+        style={{
+          cursor: 'pointer',
+          fontSize: '18px',
+          display: 'flex',
+          alignItems: 'center',
+          background: 'none',
+          border: 'none',
+          padding: '10px',
+          marginBottom: '10px',
+          backgroundColor : "gray"
+        }}
+      >
+        ← Back
+      </button>
+
       <h1>Help & Support</h1>
 
       <div className="faq-section">
@@ -95,7 +116,7 @@ function Help() {
         <p>Need help? Contact us:</p>
         <ul>
           <li>Email: <a href="mailto:support@gemini.ai">support@gemini.ai</a></li>
-          <li>Phone: +123-456-7890</li>
+          <li>Phone: +91 7893467045</li>
         </ul>
       </div>
     </div>

@@ -16,7 +16,7 @@ const GeminiSubscription = () => {
     setCountdown(3);
     setProgress(100);
 
-    // Confetti animation for stars
+
     confetti({
       particleCount: 100,
       spread: 70,
