@@ -7,18 +7,12 @@ import { Array } from '../response_bar/response.jsx';
 
 function Slide_Bar({ onPromptClick }) {
   const [menu, setMenu] = useState(false);
-  const [history, setHistory] = useState([]);
   const [menuIndex, setMenuIndex] = useState(null);
   const [editingIndex, setEditingIndex] = useState(null);
   const [editText, setEditText] = useState('');
+  const [update, setUpdate] = useState(0); // Dummy state for forcing re-render
   const menuRef = useRef(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (Array.length > 0) {
-      setHistory([...Array].reverse());
-    }
-  }, [Array]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -32,12 +26,10 @@ function Slide_Bar({ onPromptClick }) {
     };
   }, []);
 
+  // Function to delete a specific prompt from Array
   const deletePrompt = (index) => {
-    setHistory((prevHistory) => {
-      const newHistory = prevHistory.filter((_, i) => i !== index);
-      Array.splice(Array.length - 1 - index, 1); // Remove from original Array
-      return [...newHistory];
-    });
+    Array.splice(index, 1); // Remove selected prompt from imported Array
+    setUpdate((prev) => prev + 1); // Force re-render
   };
 
   const startRenaming = (index, prompt) => {
@@ -46,13 +38,9 @@ function Slide_Bar({ onPromptClick }) {
   };
 
   const saveRenaming = (index) => {
-    setHistory((prevHistory) => {
-      const updatedHistory = [...prevHistory];
-      updatedHistory[index] = editText;
-      Array[Array.length - 1 - index] = editText; // Update in original Array
-      return updatedHistory;
-    });
+    Array[index] = editText; // Update the prompt in the imported Array
     setEditingIndex(null);
+    setUpdate((prev) => prev + 1); // Force re-render to show updated text
   };
 
   return (
@@ -85,16 +73,24 @@ function Slide_Bar({ onPromptClick }) {
                     autoFocus
                   />
                 ) : (
-                  <span style={{fontSize : "1rem"}} onClick={() => onPromptClick(prompt)}> {prompt} </span>
+                  <span style={{ fontSize: "1rem" }} onClick={() => onPromptClick(prompt)}>
+                    {prompt}
+                  </span>
                 )}
 
-                <button className="dots-btn" onClick={() => setMenuIndex(menuIndex === index ? null : index)}>⋮</button>
+                <button className="dots-btn" onClick={() => setMenuIndex(menuIndex === index ? null : index)}>
+                  ⋮
+                </button>
 
                 {menuIndex === index && (
                   <div className="options-menu" ref={menuRef}>
-                    <button onClick={() => setMenuIndex(null)} className="back-btn">🔙 Back</button>
+                    <button onClick={() => setMenuIndex(null)} className="back-btn">
+                      🔙 Back
+                    </button>
                     <button onClick={() => startRenaming(index, prompt)}>Rename</button>
-                    <button onClick={() => deletePrompt(index)} className="delete-btn">Delete</button>
+                    <button onClick={() => deletePrompt(index)} className="delete-btn">
+                      Delete
+                    </button>
                   </div>
                 )}
               </li>
@@ -108,24 +104,22 @@ function Slide_Bar({ onPromptClick }) {
           <ul className="helpcontainer">
             <li onClick={() => navigate('/about')} style={{ cursor: 'pointer' }}>
               <img
-                style={{ borderRadius: '50%', fontWeight: '900' }}
+                style={{ borderRadius: '50%' }}
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShoqKBIBUf2wQ8DJBoCYLC5TJhUtWf2esIsg&s"
                 alt="About"
               />
               <span>About</span>
             </li>
-
             <li onClick={() => navigate('/help')} style={{ cursor: 'pointer' }}>
               <ImageComponent src={assets.question_icon} />
               <span>Help</span>
             </li>
-
             <li onClick={() => navigate('/settings')} style={{ cursor: 'pointer' }}>
               <ImageComponent src={assets.setting_icon} />
               <span>Settings</span>
             </li>
           </ul>
-        </div> 
+        </div>
       </div>
     </div>
   );

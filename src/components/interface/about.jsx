@@ -104,25 +104,25 @@ const navigate = useNavigate("/auth")
 
 
       <div style={styles.textContainer}>
-        <h2 style={styles.heading}>Gemini AI Project</h2>
+        <h2 style={styles.heading}>VedaMind AI Project</h2>
         <p style={styles.description}>
-          <strong>Gemini AI</strong> is a state-of-the-art platform designed to
+          <strong>VedaMind AI</strong> is a state-of-the-art platform designed to
           harness the power of artificial intelligence to revolutionize
           communication and automation. It combines the capabilities of
           conversational AI, predictive analytics, and content generation to
           empower users across various industries.
         </p>
 
-        <h3 style={styles.subHeading}>What is Gemini AI?</h3>
+        <h3 style={styles.subHeading}>What is VedaMind AI ?</h3>
         <p style={styles.description}>
-          Gemini AI is inspired by the human ability to think, learn, and adapt.
+        VedaMind AI is inspired by the human ability to think, learn, and adapt.
           It uses advanced AI technologies such as machine learning and
           natural language processing (NLP) to deliver seamless interactions.
           Whether it's creating content, answering questions, or making
           decisions, Gemini AI simplifies complex tasks with precision.
         </p>
 
-        <h3 style={styles.subHeading}>Applications of Gemini AI</h3>
+        <h3 style={styles.subHeading}>Applications of VedaMind AI</h3>
         <ul style={styles.featuresList}>
           <li style={styles.li}>
             <strong>Healthcare:</strong> Automating patient interactions,
@@ -143,7 +143,7 @@ const navigate = useNavigate("/auth")
         </ul>
 
     
-        <h3 style={styles.subHeading}>Gemini AI Features</h3>
+        <h3 style={styles.subHeading}>VedaMind AI Features</h3>
         <div style={styles.featureCardsContainer}>
           <div style={styles.featureCard}>
             <h4 style={styles.featureCardTitle}>AI-Powered Assistance</h4>
@@ -172,7 +172,7 @@ const navigate = useNavigate("/auth")
         </div>
 
 
-        <h3 style={styles.subHeading}>Benefits of Gemini AI</h3>
+        <h3 style={styles.subHeading}>Benefits of VedaMind AI I</h3>
         <ul style={styles.featuresList}>
           <li style={styles.li}>Improved decision-making through data-driven insights.</li>
           <li style={styles.li}>Enhanced user engagement through personalized interactions.</li>
@@ -180,7 +180,7 @@ const navigate = useNavigate("/auth")
           <li style={styles.li}>Scalability to meet growing demands in real-time.</li>
         </ul>
 
-        <h3 style={styles.subHeading}>Technologies Used in Gemini AI</h3>
+        <h3 style={styles.subHeading}>Technologies Used in VedaMind AI </h3>
         <ul style={styles.featuresList}>
           <li style={styles.li}><strong>Backend:</strong> Node.js, Express.js, and MongoDB.</li>
           <li style={styles.li}><strong>Frontend:</strong> React.js, Redux, and Bootstrap.</li>
@@ -188,7 +188,7 @@ const navigate = useNavigate("/auth")
           <li style={styles.li}><strong>Cloud:</strong> AWS for hosting and scalability.</li>
         </ul>
 
-        <h3 style={styles.subHeading}>Future of Gemini AI</h3>
+        <h3 style={styles.subHeading}>Future of VedaMind AI I</h3>
         <p style={styles.description}>
           Gemini AI continues to evolve, incorporating the latest advancements in
           AI research. The future of Gemini AI lies in enhancing the accuracy of

@@ -98,8 +98,9 @@ export default function SignupPage() {
       <Box  className="container1"  sx={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'center', alignItems: 'center',marginLeft : "-30%"}}>
        
       <Box className="container"  sx={{ width: '350px', p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: 'white' }}>
-        <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#1976d2', textAlign: 'center', paddingBottom: '20px' }}>
-          Gemini AI
+        <Typography variant="h3" sx={{ fontWeight:"550",   color: "transparent", background: "linear-gradient(to right, #8B0000, #FF1493, #C71585)",
+              WebkitBackgroundClip: "text",textAlign: 'center', paddingBottom: '20px' ,fontSize:"2.5rem"}}>
+        VedaMindAI
         </Typography>
         <Typography variant="h5" textAlign="center" gutterBottom>
           Signup

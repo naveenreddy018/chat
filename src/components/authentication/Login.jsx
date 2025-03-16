@@ -68,7 +68,19 @@ const Login = () => {
     return (
         <div style={styles.container}>
             <form id="login" onSubmit={handleSubmit} style={styles.form}>
-                <h2 style={styles.header}>Login to Gemini AI</h2>
+            <h1
+            style={{
+              fontSize: "1.5rem",
+              background: "linear-gradient(to right, #8B0000, #FF1493, #C71585)",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+              fontWeight: "bold",
+              padding: "10px  50px"
+            }}
+          >
+          Login in VedaMindAI
+          </h1>
+
                 
                 <label htmlFor="name" style={styles.label}>Username</label>
                 <input 

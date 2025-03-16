@@ -9,6 +9,7 @@ import Help from './components/interface/help'
 import Profile from './components/interface/profile'
 import AppNavbar from './components/interface/about'
 import SettingsPage from './components/interface/setting'
+import SettingsDashboard from './components/interface/setting'
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path="/auth" element={<div ><Chat /></div>} />
         <Route path='/register' element={<SignupPage />} />
         <Route path='/trygemini' element={<GeminiSubscription />} />
-        <Route path='/settings' element={<SettingsPage/>} />
+        <Route path='/settings' element={<SettingsDashboard/>} />
         <Route  path='/help' element={<Help />} />
         <Route path='/profile' element={<Profile />} />
         <Route   path='/about' element={<AppNavbar />} />

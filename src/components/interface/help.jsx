@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import './help.css';
 
 function Help() {
   const [activeQuestion, setActiveQuestion] = useState(null);
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate(); 
 
   const toggleAnswer = (index) => {
     setActiveQuestion(activeQuestion === index ? null : index);
@@ -12,10 +12,10 @@ function Help() {
 
   const faqs = [
     {
-      question: 'How do I use Gemini AI?',
+      question: 'How do I use VedaMind AI ?',
       answer: [
         'Step 1: Enter your query or request in the input box.',
-        'Step 2: Press the "Submit" button to send the query to Gemini AI.',
+        'Step 2: Press the "Submit" button to send the query to VedaMind AI .',
         'Step 3: Wait for the AI to process and generate a response.',
         'Step 4: View the AI’s response in the designated response area.',
         'Step 5: Modify your query for better results.',
@@ -27,9 +27,9 @@ function Help() {
       ],
     },
     {
-      question: 'What can Gemini AI do?',
+      question: 'What can VedaMind AI do?',
       answer: [
-        'Step 1: Gemini AI answers a wide range of questions.',
+        'Step 1: VedaMind AI  answers a wide range of questions.',
         'Step 2: It summarizes text and provides key points.',
         'Step 3: Suggests improvements for writing, code, and content.',
         'Step 4: Generates ideas and brainstorming topics.',
@@ -44,9 +44,9 @@ function Help() {
     {
       question: 'How do I contact support?',
       answer: [
-        'Step 1: Contact Gemini AI support via our contact page.',
-        'Step 2: Email: support@gemini.ai',
-        'Step 3: Phone: +123-456-7890',
+        'Step 1: Contact VedaMind AI  support via our contact page.',
+        'Step 2: Email: support@VedaMind.ai',
+        'Step 3: Phone: +91 7893467045',
         'Step 4: Support available 24/7.',
         'Step 5: For technical issues, provide detailed information.',
         'Step 6: For billing inquiries, include your account details.',
@@ -103,7 +103,7 @@ function Help() {
       </div>
 
       <div className="how-to-use">
-        <h2>How to Use Gemini AI</h2>
+        <h2>How to Use VedaMind AI </h2>
         <ul>
           <li>Step 1: Enter your query in the input box.</li>
           <li>Step 2: Press "Submit" to send the query.</li>
@@ -115,7 +115,7 @@ function Help() {
         <h2>Support Call</h2>
         <p>Need help? Contact us:</p>
         <ul>
-          <li>Email: <a href="mailto:support@gemini.ai">support@gemini.ai</a></li>
+          <li>Email: <a href="mailto:support@gemini.ai">support@VedaMind.ai</a></li>
           <li>Phone: +91 7893467045</li>
         </ul>
       </div>

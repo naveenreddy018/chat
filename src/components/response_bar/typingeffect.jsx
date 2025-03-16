@@ -15,7 +15,7 @@ const TypingEffect = ({ text, delay = 30 }) => {
     sanitizedText = sanitizedText.replace(/(\d+\.|[-•])/g, "\n$1"); // Newline before numbers or bullet points
 
     let startIdx = index;
-    let endIdx = Math.min(startIdx + 1700, sanitizedText.length);
+    let endIdx = Math.min(startIdx + 2500, sanitizedText.length);
     let truncatedText = sanitizedText.slice(startIdx, endIdx);
 
     let charIndex = 0;
@@ -52,14 +52,14 @@ const TypingEffect = ({ text, delay = 30 }) => {
       textContainerRef.current.addEventListener("scroll", () => {
         if (textContainerRef.current) {
           const { scrollTop, scrollHeight, clientHeight } = textContainerRef.current;
-          userScrolledRef.current = scrollTop + clientHeight < scrollHeight - 20;
+          userScrolledRef.current = scrollTop + clientHeight < scrollHeight - 100;
         }
       });
     }
   }, []);
 
   const handleContinue = () => {
-    setIndex((prev) => prev + 500);
+    setIndex((prev) => prev + 2500);
     setShowButton(false);
   };
 
@@ -69,7 +69,7 @@ const TypingEffect = ({ text, delay = 30 }) => {
       style={{
         color: "black",
         fontSize: "0.9rem",
-        maxHeight: "300px",
+        maxHeight: "450px",
         overflowY: "auto",
         padding: "10px",
         whiteSpace: "pre-line",

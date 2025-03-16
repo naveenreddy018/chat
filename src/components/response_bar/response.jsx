@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
 import { motion } from "framer-motion";
 import LogoutModal from "./modal";
+import { Array_photo } from "../interface/setting";
+
+console.log(Array_photo)
 
 export const Array = [];
 
@@ -49,7 +52,7 @@ function Response_Bar() {
                 response: conversation[conversation.length - 1].response,
               }),
             });
-  
+
             if (!res.ok) throw new Error("Failed to store data in DB");
             console.log("Response stored successfully!");
           } catch (error) {
@@ -58,11 +61,11 @@ function Response_Bar() {
         };
         storeResponseInDB();
       }, 10000);
-  
-      return () => clearInterval(interval); 
+
+      return () => clearInterval(interval);
     }
   }, [conversation]);
-  
+
 
 
 
@@ -91,9 +94,9 @@ function Response_Bar() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (!requestInProgress) {
-        handleSend("Give me a random fact"); // Auto-fetch every 2 minutes
+        handleSend("Give me a random fact");
       }
-    }, 120000); // 2 minutes
+    }, 120000);
 
     return () => clearInterval(interval);
   }, [requestInProgress]);
@@ -144,6 +147,29 @@ function Response_Bar() {
     }
   };
 
+  const handlePhotoChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        localStorage.setItem("profilePhoto", reader.result);
+        setProfilePhoto(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setUsername(getStoredUsername());
+      setProfilePhoto(getStoredPhoto());
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
   const handleNewChat = () => {
     setConversation([]);
     setPrompt("");
@@ -154,26 +180,55 @@ function Response_Bar() {
     <div className="response-container">
       <div className="header">
         <div className="logo">
-          <ImageComponent src={assets.Gemini_Advanced_logo} style={{ width: 150 }} />
+          {/* <ImageComponent src={assets.Gemini_Advanced_logo} style={{ width: 150 }} /> */}
+          <h1
+            style={{
+              fontSize: "2rem",
+              background: "linear-gradient(to right, #8B0000, #FF1493, #C71585)",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+              fontWeight: "bold",
+              padding: "10px  50px"
+            }}
+          >
+            VedaMindAI
+          </h1>
+
         </div>
 
         <div className="scroll-box" title="Scroll Up">Hover over me!</div>
 
         <div className="nav">
           <div className="nav-name">
-            <Link to="/trygemini">Try Advanced Gemini</Link>
+            <Link to="/trygemini"><button style={{padding : "5px  15px"}}>
+            <h1
+            style={{
+              fontSize: "1rem",
+              background: "linear-gradient(to right, #8B0000, #FF1493, #C71585)",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+              fontWeight: "bold",
+              padding : "10px 0px "
+           
+            }}
+          >
+           ←  Try Advanced VedaMindAI
+          </h1></button></Link>
           </div>
           <div className="nav-user-icon">
             {userModalBody ? (
               <LogoutModal setUserModalBody={setUserModalBody} />
             ) : (
+
               <ImageComponent
                 src={profilePhoto}
                 style={{ width: 50, borderRadius: "50%", cursor: "pointer" }}
                 onClick={() => setUserModalBody(true)}
               />
+
             )}
           </div>
+
         </div>
       </div>
 
@@ -189,7 +244,7 @@ function Response_Bar() {
                 </div>
                 {entry.response ? (
                   <div className="response-display">
-                    <TypingEffect  text={entry.response} delay={30} />
+                    <TypingEffect text={entry.response} delay={30} />
                   </div>
                 ) : (
                   loading && (

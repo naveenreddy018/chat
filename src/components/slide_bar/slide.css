@@ -1,16 +1,12 @@
-*{
-  font-size: 1rem !important;
-}
-
 .slide_container {
   position: relative;
   z-index: 1000000;
 }
 
 .hamburger {
-  position: fixed;
-  top: 15px;
-  left: 15px;
+  position: relative;
+  top: 10px;             /* Adjusted from 15px to 20px */
+  left: 10px;            /* Adjusted from 15px to 20px */
   background-color: #333;
   color: white;
   border: none;
@@ -18,9 +14,10 @@
   padding: 15px;
   cursor: pointer;
   border-radius: 5px;
-  z-index: 1000;
+  z-index: 1100;         /* Increased z-index to ensure it's on top */
 }
 
+/* The rest of your CSS remains the same */
 .sidebar {
   position: fixed;
   top: 0;
@@ -37,7 +34,6 @@
 .sidebar.show {
   left: 0;
 }
-
 .top-section {
   display: flex;
   justify-content: space-between;
@@ -90,7 +86,7 @@ a {
   font-weight: 500;
 }
 
-/* Bottom Section */
+
 .bottom-section {
   position: absolute;
   bottom: 20px;
