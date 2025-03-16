@@ -15,7 +15,7 @@ const TypingEffect = ({ text, delay = 30 }) => {
     sanitizedText = sanitizedText.replace(/(\d+\.|[-•])/g, "\n$1"); // Newline before numbers or bullet points
 
     let startIdx = index;
-    let endIdx = Math.min(startIdx + 2500, sanitizedText.length);
+    let endIdx = Math.min(startIdx + 3500, sanitizedText.length);
     let truncatedText = sanitizedText.slice(startIdx, endIdx);
 
     let charIndex = 0;
@@ -48,18 +48,27 @@ const TypingEffect = ({ text, delay = 30 }) => {
   }, [index, text, delay]);
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (textContainerRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } = textContainerRef.current;
+        userScrolledRef.current = scrollTop + clientHeight < scrollHeight - 20;
+      }
+    };
+
     if (textContainerRef.current) {
-      textContainerRef.current.addEventListener("scroll", () => {
-        if (textContainerRef.current) {
-          const { scrollTop, scrollHeight, clientHeight } = textContainerRef.current;
-          userScrolledRef.current = scrollTop + clientHeight < scrollHeight - 100;
-        }
-      });
+      textContainerRef.current.addEventListener("scroll", handleScroll, { passive: true });
     }
+
+    return () => {
+      if (textContainerRef.current) {
+        textContainerRef.current.removeEventListener("scroll", handleScroll);
+      }
+    };
   }, []);
 
+
   const handleContinue = () => {
-    setIndex((prev) => prev + 2500);
+    setIndex((prev) => prev + 3500);
     setShowButton(false);
   };
 
@@ -78,7 +87,7 @@ const TypingEffect = ({ text, delay = 30 }) => {
       }}
     >
       {displayText}
-      {showButton && (
+      {/* {showButton && (
         <button
           onClick={handleContinue}
           style={{
@@ -95,7 +104,7 @@ const TypingEffect = ({ text, delay = 30 }) => {
         >
           Click to Continue...
         </button>
-      )}
+      )} */}
     </div>
   );
 };

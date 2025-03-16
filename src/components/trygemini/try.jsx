@@ -4,12 +4,13 @@ import confetti from "canvas-confetti";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import "./GeminiSubscription.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const GeminiSubscription = () => {
   const [isStarting, setIsStarting] = useState(false);
   const [countdown, setCountdown] = useState(3);
   const [progress, setProgress] = useState(100);
+  const navigate = useNavigate()
 
   const handleStartTrial = () => {
     setIsStarting(true);
@@ -86,10 +87,13 @@ const GeminiSubscription = () => {
         </motion.button>
         <motion.button
           className="start-trial"
+    
           
           whileTap={{ scale: 0.9 }}
           animate={{ backgroundColor: isStarting ? "#27ae60" : "#007bff" }}
           transition={{ duration: 0.3 }}
+          onClick={() => navigate("/auth")}
+
         >
           {isStarting ? <Link to="/auth">Back to main page</Link> : <Link to="/auth">Back to main page</Link>}
         </motion.button>

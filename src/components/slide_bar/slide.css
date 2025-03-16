@@ -170,7 +170,7 @@ a {
   color: white;
   border-radius: 5px;
   padding: 5px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.01) !important;
   display: flex;
   flex-direction: column;
   gap: 5px;

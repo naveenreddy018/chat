@@ -5,7 +5,10 @@ import './slide.css';
 import { useNavigate } from 'react-router-dom';
 import { Array } from '../response_bar/response.jsx';
 
-function Slide_Bar({ onPromptClick }) {
+export const PromptReq = []
+
+
+function Slide_Bar( ) {
   const [menu, setMenu] = useState(false);
   const [menuIndex, setMenuIndex] = useState(null);
   const [editingIndex, setEditingIndex] = useState(null);
@@ -26,10 +29,10 @@ function Slide_Bar({ onPromptClick }) {
     };
   }, []);
 
-  // Function to delete a specific prompt from Array
+
   const deletePrompt = (index) => {
-    Array.splice(index, 1); // Remove selected prompt from imported Array
-    setUpdate((prev) => prev + 1); // Force re-render
+    Array.splice(index, 1); 
+    setUpdate((prev) => prev + 1); 
   };
 
   const startRenaming = (index, prompt) => {
@@ -38,11 +41,16 @@ function Slide_Bar({ onPromptClick }) {
   };
 
   const saveRenaming = (index) => {
-    Array[index] = editText; // Update the prompt in the imported Array
+    Array[index] = editText; 
     setEditingIndex(null);
-    setUpdate((prev) => prev + 1); // Force re-render to show updated text
+    setUpdate((prev) => prev + 1); 
   };
 
+  const onPromptClick = (prompt) => {
+    PromptReq.length = 0; // Clear previous entry
+    PromptReq.push(prompt); // Add the new prompt
+  };
+  
   return (
     <div className="slide_container">
       {!menu && (
@@ -73,7 +81,7 @@ function Slide_Bar({ onPromptClick }) {
                     autoFocus
                   />
                 ) : (
-                  <span style={{ fontSize: "1rem" }} onClick={() => onPromptClick(prompt)}>
+                  <span style={{ fontSize: "1rem"} }  onClick={() => onPromptClick(prompt)}>
                     {prompt}
                   </span>
                 )}
@@ -84,9 +92,9 @@ function Slide_Bar({ onPromptClick }) {
 
                 {menuIndex === index && (
                   <div className="options-menu" ref={menuRef}>
-                    <button onClick={() => setMenuIndex(null)} className="back-btn">
+                    {/* <button onClick={() => setMenuIndex(null)} className="back-btn">
                       🔙 Back
-                    </button>
+                    </button> */}
                     <button onClick={() => startRenaming(index, prompt)}>Rename</button>
                     <button onClick={() => deletePrompt(index)} className="delete-btn">
                       Delete

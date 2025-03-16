@@ -9,10 +9,11 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { motion } from "framer-motion";
 import LogoutModal from "./modal";
 import { Array_photo } from "../interface/setting";
+import { PromptReq } from "../slide_bar/slide";
 
 console.log(Array_photo)
 
-export const Array = [];
+export const Array = ["What is Silicon Valley","How do airplanes fly"];
 
 function Response_Bar() {
   const [Display, setDisplay] = useState(false);
@@ -23,6 +24,9 @@ function Response_Bar() {
   const [conversation, setConversation] = useState([]);
   const [requestInProgress, setRequestInProgress] = useState(false);
   const conversationContainerRef = useRef(null);
+    const textContainerRef = useRef(null);
+    const typingIntervalRef = useRef(null);
+    const userScrolledRef = useRef(false);
 
   // Retrieve from localStorage
   const getStoredUsername = () => localStorage.getItem("Username") || "Guest";
@@ -107,6 +111,61 @@ function Response_Bar() {
     setUsername("Guest");
     setProfilePhoto(assets.user_icon);
   };
+
+   useEffect(() => {
+      if (textContainerRef.current) {
+        textContainerRef.current.addEventListener("scroll", () => {
+          if (textContainerRef.current) {
+            const { scrollTop, scrollHeight, clientHeight } = textContainerRef.current;
+            userScrolledRef.current = scrollTop + clientHeight < scrollHeight - 100;
+          }
+        });
+      }
+    }, []);
+
+  useEffect(() => {
+    if (PromptReq.length > 1) {
+      const currentPrompt = PromptReq[PromptReq.length - 1]; // Get the latest prompt
+
+      const fetchAIResponse = async () => {
+        setLoading(true);
+        setDisplay(true);
+        setRequestInProgress(true);
+
+        setConversation((prev) => [...prev, { prompt: currentPrompt, response: "" }]);
+
+        try {
+          const res = await fetch("https://render-back-end-8.onrender.com/prompt", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt: currentPrompt }),
+          });
+
+          if (!res.ok) throw new Error("Failed to fetch AI response");
+
+          const responseData = await res.json();
+          setLoading(false);
+          setConversation((prev) =>
+            prev.map((entry) =>
+              entry.prompt === currentPrompt ? { ...entry, response: responseData.response } : entry
+            )
+          );
+        } catch (error) {
+          console.error("Error:", error.message);
+          setLoading(false);
+          setConversation((prev) => [
+            ...prev,
+            { prompt: currentPrompt, response: "Sorry, there was an error. Please try again later." },
+          ]);
+        } finally {
+          setRequestInProgress(false);
+        }
+      };
+
+      fetchAIResponse(); // Call the async function
+    }
+  }, [PromptReq]);
+
 
   const handleSend = async (currentPrompt) => {
     if (currentPrompt.trim() && !requestInProgress) {
@@ -233,7 +292,8 @@ function Response_Bar() {
       </div>
 
       {Display ? (
-        <div className="dialog-box">
+        <div className="dialog-box"  data-title="Scroll up to see content"
+        ref={textContainerRef}>
           <div ref={conversationContainerRef} className="conversation-history">
             {conversation.map((entry, index) => (
               <div key={index} className="message">
