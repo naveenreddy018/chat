@@ -43,32 +43,32 @@ function Response_Bar() {
     "Best ways to learn coding?",
   ];
 
-  useEffect(() => {
-    if (conversation.length > 0) {
-      const interval = setInterval(() => {
-        const storeResponseInDB = async () => {
-          try {
-            const res = await fetch("http://localhost:3001/storeResponse", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                prompt: conversation[conversation.length - 1].prompt,
-                response: conversation[conversation.length - 1].response,
-              }),
-            });
+  // useEffect(() => {
+  //   if (conversation.length > 0) {
+  //     const interval = setInterval(() => {
+  //       const storeResponseInDB = async () => {
+  //         try {
+  //           const res = await fetch("http://localhost:3001/storeResponse", {
+  //             method: "POST",
+  //             headers: { "Content-Type": "application/json" },
+  //             body: JSON.stringify({
+  //               prompt: conversation[conversation.length - 1].prompt,
+  //               response: conversation[conversation.length - 1].response,
+  //             }),
+  //           });
 
-            if (!res.ok) throw new Error("Failed to store data in DB");
-            console.log("Response stored successfully!");
-          } catch (error) {
-            console.error("Error storing response:", error);
-          }
-        };
-        storeResponseInDB();
-      }, 10000);
+  //           if (!res.ok) throw new Error("Failed to store data in DB");
+  //           console.log("Response stored successfully!");
+  //         } catch (error) {
+  //           console.error("Error storing response:", error);
+  //         }
+  //       };
+  //       storeResponseInDB();
+  //     }, 10000);
 
-      return () => clearInterval(interval);
-    }
-  }, [conversation]);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [conversation]);
 
 
 
@@ -84,16 +84,16 @@ function Response_Bar() {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  useEffect(() => {
-    if (conversationContainerRef.current) {
-      setTimeout(() => {
-        conversationContainerRef.current.scrollTo({
-          top: conversationContainerRef.current.scrollHeight,
-          behavior: "smooth",
-        });
-      }, 100);
-    }
-  }, [conversation]);
+  // useEffect(() => {
+  //   if (conversationContainerRef.current) {
+  //     setTimeout(() => {
+  //       conversationContainerRef.current.scrollTo({
+  //         top: conversationContainerRef.current.scrollHeight,
+  //         behavior: "smooth",
+  //       });
+  //     }, 100);
+  //   }
+  // }, [conversation]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -112,16 +112,16 @@ function Response_Bar() {
     setProfilePhoto(assets.user_icon);
   };
 
-   useEffect(() => {
-      if (textContainerRef.current) {
-        textContainerRef.current.addEventListener("scroll", () => {
-          if (textContainerRef.current) {
-            const { scrollTop, scrollHeight, clientHeight } = textContainerRef.current;
-            userScrolledRef.current = scrollTop + clientHeight < scrollHeight - 100;
-          }
-        });
-      }
-    }, []);
+  //  useEffect(() => {
+  //     if (textContainerRef.current) {
+  //       textContainerRef.current.addEventListener("scroll", () => {
+  //         if (textContainerRef.current) {
+  //           const { scrollTop, scrollHeight, clientHeight } = textContainerRef.current;
+  //           userScrolledRef.current = scrollTop + clientHeight < scrollHeight - 100;
+  //         }
+  //       });
+  //     }
+  //   }, []);
 
   useEffect(() => {
     if (PromptReq.length > 1) {
@@ -292,8 +292,9 @@ function Response_Bar() {
       </div>
 
       {Display ? (
-        <div className="dialog-box"  data-title="Scroll up to see content"
-        ref={textContainerRef}>
+        <div className="dialog-box"  title="Scroll up to see content"
+        // ref={textContainerRef}
+        >
           <div ref={conversationContainerRef} className="conversation-history">
             {conversation.map((entry, index) => (
               <div key={index} className="message">
