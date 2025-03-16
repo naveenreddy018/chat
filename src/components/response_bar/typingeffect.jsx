@@ -87,7 +87,7 @@ const TypingEffect = ({ text, delay = 30 }) => {
       }}
     >
       {displayText}
-      {/* {showButton && (
+      {showButton && (
         <button
           onClick={handleContinue}
           style={{
@@ -104,7 +104,7 @@ const TypingEffect = ({ text, delay = 30 }) => {
         >
           Click to Continue...
         </button>
-      )} */}
+      )}
     </div>
   );
 };
