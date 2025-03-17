@@ -9,6 +9,32 @@
     position: absolute;
 }
 
+body {
+    background-color: #ffffff;
+    color: #000000;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+
+  .toggle-button {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .dark-mode .toggle-button {
+    background-color: #444;
+    color: white;
+  }
+  
 .header {
     display: flex;
     justify-content: space-between;
@@ -205,7 +231,7 @@ a:hover{
   
   .prompt-card {
     padding: 10px 15px;
-    background-color: #f5f5f5;
+    /* background-color: #f5f5f5; */
     border-radius: 8px;
     cursor: pointer;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
@@ -382,6 +408,7 @@ a:hover{
     box-shadow: none;
     border-radius: 20px;
     margin: 0px 50px;
+    background-color: black;
 }
 
 .additonal-icons {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { FaCopy, FaShareAlt, FaThumbsUp } from "react-icons/fa";
 
-const TypingEffect = ({ text, delay = 30 }) => {
+const TypingEffect = ({ text, delay = 30 ,darkmode}) => {
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
   const [showButtons, setShowButtons] = useState(false);
@@ -40,7 +40,7 @@ const TypingEffect = ({ text, delay = 30 }) => {
         clearInterval(typingIntervalRef.current);
         typingIntervalRef.current = null;
         setShowContinue(endIdx < sanitizedText.length);
-        setShowButtons(!showContinue); // Show buttons only if all text is displayed
+        setShowButtons(!showContinue);
       }
     }, Math.max(5, delay / 3));
 
@@ -106,6 +106,7 @@ const TypingEffect = ({ text, delay = 30 }) => {
         borderRadius: "5px",
         position: "relative",
       }}
+      
     >
       {displayText}
       {showButtons && (
