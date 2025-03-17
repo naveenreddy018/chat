@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import { FaCopy, FaShareAlt, FaThumbsUp } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 
-const TypingEffect = ({ text, delay = 30 ,darkmode}) => {
+const TypingEffect = ({ text, delay = 30 }) => {
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
   const [showButtons, setShowButtons] = useState(false);
   const [showContinue, setShowContinue] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [stars, setStars] = useState([]);
   const textContainerRef = useRef(null);
   const typingIntervalRef = useRef(null);
   const userScrolledRef = useRef(false);
@@ -50,25 +53,6 @@ const TypingEffect = ({ text, delay = 30 ,darkmode}) => {
     };
   }, [index, text, delay]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (textContainerRef.current) {
-        const { scrollTop, scrollHeight, clientHeight } = textContainerRef.current;
-        userScrolledRef.current = scrollTop + clientHeight < scrollHeight - 20;
-      }
-    };
-
-    if (textContainerRef.current) {
-      textContainerRef.current.addEventListener("scroll", handleScroll, { passive: true });
-    }
-
-    return () => {
-      if (textContainerRef.current) {
-        textContainerRef.current.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
-
   const handleContinue = () => {
     setIndex((prev) => prev + 1000);
     setShowContinue(false);
@@ -93,47 +77,82 @@ const TypingEffect = ({ text, delay = 30 ,darkmode}) => {
     }
   };
 
+  const handleLike = () => {
+    setLiked(true);
+    setStars([...stars, ...Array.from({ length: 5 }, () => ({
+      id: Math.random(),
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+    }))]);
+    setTimeout(() => setLiked(false), 1000);
+  };
+
   return (
-    <div
-      ref={textContainerRef}
-      style={{
-        color: "black",
-        fontSize: "0.9rem",
-        maxHeight: "450px",
-        overflowY: "auto",
-        padding: "10px",
-        whiteSpace: "pre-line",
-        borderRadius: "5px",
-        position: "relative",
-      }}
-      
-    >
-      {displayText}
-      {showButtons && (
-        <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-          <FaCopy style={{ cursor: "pointer" }} onClick={handleCopy} title="Copy" />
-          <FaShareAlt style={{ cursor: "pointer" }} onClick={handleShare} title="Share" />
-          <FaThumbsUp style={{ cursor: "pointer" }} title="Like" />
-        </div>
-      )}
-      {showContinue && (
-        <button
-          onClick={handleContinue}
-          style={{
-            display: "block",
-            marginTop: "10px",
-            padding: "4px 12px",
-            fontSize: "0.9rem",
-            cursor: "pointer",
-            backgroundColor: "#007bff",
-            color: "gold",
-            border: "none",
-            borderRadius: "5px",
-          }}
-        >
-          Click to Continue...
-        </button>
-      )}
+    <div style={{ position: "relative" }}>
+      <div
+        ref={textContainerRef}
+        style={{
+          color: "black",
+          fontSize: "0.9rem",
+          maxHeight: "450px",
+          overflowY: "auto",
+          padding: "10px",
+          whiteSpace: "pre-line",
+          borderRadius: "5px",
+          position: "relative",
+        }}
+      >
+        {displayText}
+        {showButtons && (
+          <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+            <FaCopy style={{ cursor: "pointer" }} onClick={handleCopy} title="Copy" />
+            <FaShareAlt style={{ cursor: "pointer" }} onClick={handleShare} title="Share" />
+            <FaThumbsUp
+              style={{ cursor: "pointer", color: liked ? "gold" : "black" }}
+              onClick={handleLike}
+              title="Like"
+            />
+          </div>
+        )}
+        {showContinue && (
+          <button
+            onClick={handleContinue}
+            style={{
+              display: "block",
+              marginTop: "10px",
+              padding: "4px 12px",
+              fontSize: "0.9rem",
+              cursor: "pointer",
+              backgroundColor: "#007bff",
+              color: "gold",
+              border: "none",
+              borderRadius: "5px",
+            }}
+          >
+            Click to Continue...
+          </button>
+        )}
+      </div>
+      <AnimatePresence>
+        {stars.map((star) => (
+          <motion.div
+            key={star.id}
+            initial={{ opacity: 1, scale: 0.5 }}
+            animate={{ opacity: 0, scale: 2, y: -20 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            style={{
+              position: "absolute",
+              top: `${star.y}%`,
+              left: `${star.x}%`,
+              color: "gold",
+              fontSize: "20px",
+            }}
+          >
+            ⭐
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 };
