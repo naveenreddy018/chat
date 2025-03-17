@@ -301,7 +301,9 @@ a:hover{
     scrollbar-width: 0px;
     flex-direction: column-reverse;
     padding: 20px;
-    box-shadow: 10px 5px 40px rgba(0, 0, 0, 0.2);
+    background-color: rgba(128, 128, 128, 0.1);
+
+    /* box-shadow: 10px 5px 40px rgba(0, 0, 0, 0.2); */
 }
 .dialog-box:hover .scroll-box {
     cursor: pointer;

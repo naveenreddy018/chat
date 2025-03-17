@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
+import { FaCopy, FaShareAlt, FaThumbsUp } from "react-icons/fa";
 
 const TypingEffect = ({ text, delay = 30 }) => {
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
-  const [showButton, setShowButton] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
+  const [showContinue, setShowContinue] = useState(false);
   const textContainerRef = useRef(null);
   const typingIntervalRef = useRef(null);
   const userScrolledRef = useRef(false);
@@ -12,16 +14,16 @@ const TypingEffect = ({ text, delay = 30 }) => {
     if (!text || typingIntervalRef.current) return;
 
     let sanitizedText = text.replace(/\*/g, " ");
-    sanitizedText = sanitizedText.replace(/(\d+\.|[-•])/g, "\n$1"); // Newline before numbers or bullet points
+    sanitizedText = sanitizedText.replace(/(\d+)/g, "\n$1");
 
     let startIdx = index;
-    let endIdx = Math.min(startIdx + 3500, sanitizedText.length);
+    let endIdx = Math.min(startIdx + 1000, sanitizedText.length);
     let truncatedText = sanitizedText.slice(startIdx, endIdx);
 
     let charIndex = 0;
     typingIntervalRef.current = setInterval(() => {
       if (charIndex < truncatedText.length) {
-        setDisplayText(sanitizedText.slice(0, startIdx + charIndex + 1)); // Fix skipping issue
+        setDisplayText(sanitizedText.slice(0, startIdx + charIndex + 1));
         charIndex += 1;
 
         setTimeout(() => {
@@ -37,7 +39,8 @@ const TypingEffect = ({ text, delay = 30 }) => {
       } else {
         clearInterval(typingIntervalRef.current);
         typingIntervalRef.current = null;
-        setShowButton(endIdx < sanitizedText.length);
+        setShowContinue(endIdx < sanitizedText.length);
+        setShowButtons(!showContinue); // Show buttons only if all text is displayed
       }
     }, Math.max(5, delay / 3));
 
@@ -66,10 +69,28 @@ const TypingEffect = ({ text, delay = 30 }) => {
     };
   }, []);
 
-
   const handleContinue = () => {
-    setIndex((prev) => prev + 3500);
-    setShowButton(false);
+    setIndex((prev) => prev + 1000);
+    setShowContinue(false);
+    setShowButtons(false);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(displayText).then(() => {
+      alert("Text copied to clipboard!");
+    });
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({ text: displayText });
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      alert("Sharing not supported in this browser.");
+    }
   };
 
   return (
@@ -83,11 +104,18 @@ const TypingEffect = ({ text, delay = 30 }) => {
         padding: "10px",
         whiteSpace: "pre-line",
         borderRadius: "5px",
-       
+        position: "relative",
       }}
     >
       {displayText}
-      {showButton && (
+      {showButtons && (
+        <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+          <FaCopy style={{ cursor: "pointer" }} onClick={handleCopy} title="Copy" />
+          <FaShareAlt style={{ cursor: "pointer" }} onClick={handleShare} title="Share" />
+          <FaThumbsUp style={{ cursor: "pointer" }} title="Like" />
+        </div>
+      )}
+      {showContinue && (
         <button
           onClick={handleContinue}
           style={{

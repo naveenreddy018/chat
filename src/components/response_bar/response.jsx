@@ -98,7 +98,7 @@ function Response_Bar() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (!requestInProgress) {
-        handleSend("Give me a random fact");
+        handleSend("");
       }
     }, 120000);
 
@@ -299,9 +299,27 @@ function Response_Bar() {
             {conversation.map((entry, index) => (
               <div key={index} className="message">
                 <div className="prompt-display">
-                  <p className="hello" style={{ fontSize: "1.2rem" }}>
+                  {/* <p className="hello" style={{ fontSize: "1.2rem" }}>
                     <strong className="you">You :</strong> {entry.prompt}
-                  </p>
+                  </p> */}
+<p className="hello" style={{ fontSize: "1.2rem", display: "flex", alignItems: "center", gap: "10px" }}>
+ 
+
+    You :
+  
+  <span
+    className="prompt"
+    style={{
+      backgroundColor: "rgba(0, 128, 255, 0.2)", // Light blue transparent
+      padding: "8px 15px",
+      borderRadius: "50px", // Rounded rectangle
+      display: "inline-block",
+    }}
+  >
+    {entry.prompt}
+  </span>
+</p>
+
                 </div>
                 {entry.response ? (
                   <div className="response-display">
